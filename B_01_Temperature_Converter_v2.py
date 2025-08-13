@@ -170,14 +170,13 @@ class DisplayHelp:
                                         font=("Arial", "14", "bold"))
         self.help_heading_label.grid(row=0)
 
-        help_text = "To yse the program, simply enter the weight " \
+        help_text = "To use the program, simply enter the weight" \
                     "you wish to convert and then choose to convert " \
-                    "to either degrees Grams (centigrade) or " \
+                    "to either degrees Grams or " \
                     "Ounces.. \n\n" \
-                    " Note that -273 degrees C " \
-                    "(-459 F) is absolute zero (the coldest possible " \
-                    "weight). If you try to convert a " \
-                    "weight that is less than -273 degrees C, " \
+                    " Please note that you cannot use input a weight value below 0 " \
+                    ". If you try to convert a " \
+                    "weight that is less than 0 " \
                     "you will get an error message. \n\n" \
                     "To see your " \
                     "calculation history and export it to a text " \

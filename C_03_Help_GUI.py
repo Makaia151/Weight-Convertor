@@ -4,12 +4,12 @@ from functools import partial  # To prevent unwanted windows
 
 class Converter:
     """
-    Temperature conversion tool (°C to °F or °F to °C)
+    Weight conversion tool (°C to °F or °F to °C)
     """
 
     def __init__(self):
         """
-        Temperature converter GUI
+        Weight converter GUI
         """
         self.temp_frame = Frame(padx=10, pady=10)
         self.temp_frame.grid()
@@ -55,14 +55,13 @@ class DisplayHelp:
                                         font=("Arial", "14", "bold"))
         self.help_heading_label.grid(row=0)
 
-        help_text = "To yse the program, simply enter the temperature " \
+        help_text = "To use the program, simply enter the weight" \
                     "you wish to convert and then choose to convert " \
-                    "to either degrees Celsius (centigrade) or " \
-                    "Fahrenheit.. \n\n" \
-                    " Note that -273 degrees C " \
-                    "(-459 F) is absolute zero (the coldest possible " \
-                    "temperature). If you try to convert a " \
-                    "temperature that is less than -273 degrees C, " \
+                    "to either degrees Grams or " \
+                    "Ounces.. \n\n" \
+                    " Please note that you cannot use input a weight value below 0 " \
+                    ". If you try to convert a " \
+                    "weight that is less than 0 " \
                     "you will get an error message. \n\n" \
                     "To see your " \
                     "calculation history and export it to a text " \
