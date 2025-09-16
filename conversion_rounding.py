@@ -21,8 +21,8 @@ def to_grams(to_convert):
 def to_ounces(to_convert):
     """
     Converts from G to Oz
-    :param to_convert: Temperature to be converted in °C
-    :return: Converted temperature in °F
+    :param to_convert: Weight to be converted in G
+    :return: Converted Weight in Oz
     """
     answer = (to_convert / 28.35)
 

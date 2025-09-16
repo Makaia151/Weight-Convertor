@@ -7,7 +7,7 @@ from datetime import date
 
 class Converter:
     """
-    Weight conversion tool (*C to *F or *F to *C)
+    Weight conversion tool
     """
 
     def __init__(self):
@@ -17,44 +17,44 @@ class Converter:
 
         self.all_calculations_list = []
 
-        self.temp_frame = Frame(padx=10, pady=10)
-        self.temp_frame.grid()
+        self.weight_frame = Frame(padx=10, pady=10)
+        self.weight_frame.grid()
 
-        self.temp_heading = Label(self.temp_frame,
-                                  text="Weight Convertor",
-                                  font=("Arial", "16", "bold")
-                                  )
-        self.temp_heading.grid(row=0)
+        self.weight_heading = Label(self.weight_frame,
+                                    text="Weight Convertor",
+                                    font=("Arial", "16", "bold")
+                                    )
+        self.weight_heading.grid(row=0)
 
         instructions = ("Please enter a weight below and then press "
                         "one of the buttons to convert it from Grams "
                         "to Ounces.")
-        self.temp_instructions = Label(self.temp_frame,
-                                       text=instructions,
-                                       wraplength=250, width=40,
-                                       justify="left")
-        self.temp_instructions.grid(row=1)
+        self.weight_instructions = Label(self.weight_frame,
+                                         text=instructions,
+                                         wraplength=250, width=40,
+                                         justify="left")
+        self.weight_instructions.grid(row=1)
 
-        self.temp_entry = Entry(self.temp_frame,
-                                font=("Arial", "14")
-                                )
-        self.temp_entry.grid(row=2, padx=10, pady=10)
+        self.weight_entry = Entry(self.weight_frame,
+                                  font=("Arial", "14")
+                                  )
+        self.weight_entry.grid(row=2, padx=10, pady=10)
 
         error = "Please enter a number"
-        self.answer_error = Label(self.temp_frame, text=error,
+        self.answer_error = Label(self.weight_frame, text=error,
                                   fg="#084C99", font=("Arial", "14", "bold"))
         self.answer_error.grid(row=3)
 
         # Conversion, help and history / export buttons
-        self.button_frame = Frame(self.temp_frame)
+        self.button_frame = Frame(self.weight_frame)
         self.button_frame.grid(row=4)
 
         # button list (button text | bg colour | command | row | column)
         button_details_list = [
-            ["To Grams", "#990099", lambda: self.check_temp(c.ABS_ZERO_OUNCES), 0, 0],
-            ["To Ounces", "#009900", lambda: self.check_temp(c.ABS_ZERO_GRAMS), 0, 1],
-            ["Help / Info", "#CC6600", self.to_help, 1, 0],
-            ["History / Export", "#004C99", self.to_history, 1, 1]
+            ["To Grams", "#692617", lambda: self.check_weight(c.ABS_ZERO_OUNCES), 0, 0],  # converts ounces to grams
+            ["To Ounces", "#193A75", lambda: self.check_weight(c.ABS_ZERO_GRAMS), 0, 1],  # converts grams to ounces
+            ["Help / Info", "#3F1975", self.to_help, 1, 0],
+            ["History / Export", "#00B3A4", self.to_history, 1, 1]
         ]
 
         # list to hold buttons once they have been made
@@ -76,42 +76,41 @@ class Converter:
         self.to_history_button = self.button_ref_list[3]
         self.to_history_button.config(state=DISABLED)
 
-    def check_temp(self, min_temp):
+    def check_weight(self, min_weight):
         """
         Checks weight is valid and either invokes calculation
         function or shows a custom error
         """
 
         # Retrieve weight to be converted
-        to_convert = self.temp_entry.get()
+        to_convert = self.weight_entry.get().strip()
 
         # Reset label and entry box(if we had an error)
         self.answer_error.config(fg="#004C99", font=("Arial", "13", "bold"))
-        self.temp_entry.config(bg="#FFFFFF")
+        self.weight_entry.config(bg="#FFFFFF")
 
-        error = f"Enter a number more than / equal to {min_temp}"
-        has_errors = "no"
+        error = f"Enter a number more than / equal to {min_weight}"
+        has_errors = False
 
         # checks that amount to be converted is a number above absolute zero
         try:
             to_convert = float(to_convert)
-            if to_convert >= min_temp:
+            if to_convert >= min_weight:
                 # error = ""
-                self.convert(min_temp, to_convert)
+                self.convert(min_weight, to_convert)
             else:
-                has_errors = "yes"
-
+                has_errors = True
         except ValueError:
-            has_errors = "yes"
+            has_errors = True
 
         # display the error if necessary
-        if has_errors == "yes":
+        if has_errors:
             self.answer_error.config(text=error, fg="#9C0000", font=("Arial", "10", "bold"))
-            self.temp_entry.config(bg="#F4CCCC")
-            self.temp_entry.delete(0, END)
+            self.weight_entry.config(bg="#F4CCCC")
+            self.weight_entry.delete(0, END)
 
-    def convert(self, min_temp, to_convert):
-        if min_temp == c.ABS_ZERO_GRAMS:
+    def convert(self, min_weight, to_convert):
+        if min_weight == c.ABS_ZERO_GRAMS:
             answer = cr.to_ounces(to_convert)
             answer_statement = f"{to_convert}G is {answer}Oz"  # Fixed parentheses here
         else:
@@ -149,7 +148,7 @@ class DisplayHelp:
 
     def __init__(self, partner):
         # setup dialogue box and background colour
-        background = "#ffe6cc"
+        background = "#CCDAFF"
         self.help_box = Toplevel()
 
         # disable help button
@@ -170,9 +169,9 @@ class DisplayHelp:
                                         font=("Arial", "14", "bold"))
         self.help_heading_label.grid(row=0)
 
-        help_text = "To use the program, simply enter the weight" \
+        help_text = "To use the program, simply enter the weight " \
                     "you wish to convert and then choose to convert " \
-                    "to either degrees Grams or " \
+                    "to either Grams or " \
                     "Ounces.. \n\n" \
                     " Please note that you cannot use input a weight value below 0 " \
                     ". If you try to convert a " \
@@ -189,7 +188,7 @@ class DisplayHelp:
 
         self.dismiss_button = Button(self.help_frame,
                                      font=("Arial", "12", "bold"),
-                                     text="Dismiss", bg="#CC6600",
+                                     text="Dismiss", bg="#005CCC",
                                      fg="#FFFFFF",
                                      command=partial(self.close_help, partner))
         self.dismiss_button.grid(row=2, padx=10, pady=10)

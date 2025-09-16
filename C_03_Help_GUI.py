@@ -57,7 +57,7 @@ class DisplayHelp:
 
         help_text = "To use the program, simply enter the weight" \
                     "you wish to convert and then choose to convert " \
-                    "to either degrees Grams or " \
+                    "to either Grams or " \
                     "Ounces.. \n\n" \
                     " Please note that you cannot use input a weight value below 0 " \
                     ". If you try to convert a " \
